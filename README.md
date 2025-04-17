@@ -5,8 +5,6 @@ This repository contains two small vanilla JavaScript applications, styled with 
 1. **Philosopher Match Quiz** – a “Which Philosopher Matches You?” personality quiz  
 2. **Basic Calculator** – a simple on‑page arithmetic calculator
 
-Each lives in its own folder (`/quiz` and `/calculator`). Read on for installation, usage and code snippets.
-
 ---
 
 ## 🧠 1. Philosopher Match Quiz
@@ -25,5 +23,4 @@ A minimal calculator that performs addition, subtraction, multiplication and div
 
 1. Clone the repo  
    ```bash
-   git clone [https://github.com/your‑username/your‑repo.git
-   cd your‑repo/quiz](https://aramyst.github.io/MoneyCalculator/)
+   git clone [https://aramyst.github.io/MoneyCalculator/]
