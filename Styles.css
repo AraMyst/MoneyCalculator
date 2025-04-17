@@ -1,0 +1,139 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// Quiz data: an array of question objects
+const questions = [
+  {
+    question: "What quality do you value most?",
+    options: {
+      a: { text: "Wisdom", philosopher: "Socrates" },
+      b: { text: "Individual freedom", philosopher: "Nietzsche" },
+      c: { text: "Harmony", philosopher: "Confucius" },
+      d: { text: "Equality", philosopher: "Beauvoir" },
+    },
+  },
+  {
+    question: "Which subject interests you most?",
+    options: {
+      a: { text: "Ethics", philosopher: "Socrates" },
+      b: { text: "Will to Power", philosopher: "Nietzsche" },
+      c: { text: "Social order", philosopher: "Confucius" },
+      d: { text: "Gender studies", philosopher: "Beauvoir" },
+    },
+  },
+  {
+    question: "How do you prefer to learn?",
+    options: {
+      a: { text: "Through dialogue", philosopher: "Socrates" },
+      b: { text: "Through introspection", philosopher: "Nietzsche" },
+      c: { text: "Through tradition", philosopher: "Confucius" },
+      d: { text: "Through lived experience", philosopher: "Beauvoir" },
+    },
+  },
+  {
+    question: "What is the purpose of life?",
+    options: {
+      a: { text: "To seek truth", philosopher: "Socrates" },
+      b: { text: "To create oneself", philosopher: "Nietzsche" },
+      c: { text: "To fulfil one’s role", philosopher: "Confucius" },
+      d: { text: "To achieve freedom", philosopher: "Beauvoir" },
+    },
+  },
+  {
+    question: "Which statement resonates most?",
+    options: {
+      a: { text: "‘I know that I know nothing.’", philosopher: "Socrates" },
+      b: { text: "‘Become who you are.’", philosopher: "Nietzsche" },
+      c: { text: "‘Respect is the foundation of society.’", philosopher: "Confucius" },
+      d: { text: "‘One is not born, but rather becomes, woman.’", philosopher: "Beauvoir" },
+    },
+  },
+];
+
+// State variables
+let currentQuestion = 0;
+const scores = {
+  Socrates: 0,
+  Nietzsche: 0,
+  Confucius: 0,
+  Beauvoir: 0,
+};
+
+// DOM elements
+const intro = document.getElementById("intro");
+const quiz = document.getElementById("quiz");
+const result = document.getElementById("result");
+const questionText = document.getElementById("question-text");
+const optionsForm = document.getElementById("options-form");
+const startBtn = document.getElementById("start-btn");
+const nextBtn = document.getElementById("next-btn");
+const resultText = document.getElementById("result-text");
+const restartBtn = document.getElementById("restart-btn");
+
+// Event listeners
+startBtn.addEventListener("click", startQuiz);
+nextBtn.addEventListener("click", handleNext);
+restartBtn.addEventListener("click", restartQuiz);
+
+// Start the quiz: hide intro, show first question
+function startQuiz() {
+  intro.classList.add("hidden");
+  quiz.classList.remove("hidden");
+  showQuestion();
+}
+
+// Display the current question and its options
+function showQuestion() {
+  clearOptions();
+  const q = questions[currentQuestion];
+  questionText.textContent = q.question;
+  for (const [key, option] of Object.entries(q.options)) {
+    const label = document.createElement("label");
+    label.classList.add("block", "bg-gray-200", "p-2", "rounded", "hover:bg-gray-300", "cursor-pointer");
+    const input = document.createElement("input");
+    input.type = "radio";
+    input.name = "option";
+    input.value = key;
+    input.classList.add("mr-2");
+    label.appendChild(input);
+    label.appendChild(document.createTextNode(option.text));
+    optionsForm.appendChild(label);
+  }
+}
+
+// Remove existing options
+function clearOptions() {
+  optionsForm.innerHTML = "";
+}
+
+// Handle click on 'Next'
+function handleNext() {
+  const selected = document.querySelector('input[name="option"]:checked');
+  if (!selected) return; // no selection made
+  const answer = selected.value;
+  const philos = questions[currentQuestion].options[answer].philosopher;
+  scores[philos]++;
+  currentQuestion++;
+  if (currentQuestion < questions.length) {
+    showQuestion();
+  } else {
+    showResult();
+  }
+}
+
+// Calculate and show result
+function showResult() {
+  quiz.classList.add("hidden");
+  result.classList.remove("hidden");
+  const highest = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+  resultText.textContent = highest;
+}
+
+// Restart quiz to retake
+function restartQuiz() {
+  currentQuestion = 0;
+  Object.keys(scores).forEach(key => scores[key] = 0);
+  result.classList.add("hidden");
+  intro.classList.remove("hidden");
+}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Philosopher Match Quiz</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+  <div class="max-w-xl w-full bg-white shadow-md rounded-lg p-6">
+    <div id="intro">
+      <h1 class="text-2xl font-bold mb-4">Which Philosopher Matches You?</h1>
+      <p class="mb-6">Answer a few questions to discover the philosopher whose ideas resonate most with you.</p>
+      <button id="start-btn" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">Start Quiz</button>
+    </div>
+    <div id="quiz" class="hidden">
+      <div id="question-container">
+        <h2 id="question-text" class="text-xl font-semibold mb-4"></h2>
+        <form id="options-form" class="space-y-2">
+        </form>
+      </div>
+      <button id="next-btn" class="mt-4 bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded">Next</button>
+    </div>
+    <div id="result" class="hidden text-center">
+      <h2 class="text-2xl font-bold mb-4">Your Philosopher:</h2>
+      <p id="result-text" class="text-lg mb-6"></p>
+      <button id="restart-btn" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">Try Again</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
